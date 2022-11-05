@@ -3,30 +3,30 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import uuid from "uuid/v4";
 
 const itemsFromBackend = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" }
+    { id: uuid(), content: "First task" },
+    { id: uuid(), content: "Second task" },
+    { id: uuid(), content: "Third task" },
+    { id: uuid(), content: "Fourth task" },
+    { id: uuid(), content: "Fifth task" }
 ];
 
 const columnsFromBackend = {
-  [uuid()]: {
-    name: "Requested",
-    items: itemsFromBackend
-  },
-  [uuid()]: {
-    name: "To do",
-    items: []
-  },
-  [uuid()]: {
-    name: "In Progress",
-    items: []
-  },
-  [uuid()]: {
-    name: "Done",
-    items: []
-  }
+    [uuid()]: {
+      name: "Requested",
+      items: itemsFromBackend
+    },
+    [uuid()]: {
+      name: "To do",
+      items: []
+    },
+    [uuid()]: {
+      name: "In Progress",
+      items: []
+    },
+    [uuid()]: {
+      name: "Done",
+      items: []
+    }
 };
 
 
@@ -71,14 +71,32 @@ const App = () => {
   };
 
   const onAddColumn = () => {
-    const newColunm = {
+    const newColumn = {
         name: "new Column",
         items: []
     }
     setColumns({
       ...columns,
-      [uuid()]: newColunm
+      [uuid()]: newColumn
     })
+  }
+
+  const onAddCard = (columnId) => {
+      console.log(columnId)
+    const newCard = {
+        id: uuid(),
+        content: "new card"
+    }
+    const column = columns[columnId];
+    const copiedItems = [...column.items];
+    copiedItems.push(newCard);
+    setColumns({
+      ...columns,
+      [columnId]: {
+        ...column,
+        items: copiedItems
+      }
+    });
   }
 
   return (
@@ -96,10 +114,10 @@ const App = () => {
               }}
               key={columnId}
             >
-              <div style={{height:100}}>
+              <div style={{height:100, display: "flex", justifyContent: "center", alignItems: "center",}}>
                 <h2>{column.name}</h2>
               </div>
-              <div style={{ marginLeft: 8, marginRight: 8 }}>
+              <div style={{ marginLeft: 8, marginRight: 8, padding: 8 }}>
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
                     return (
@@ -150,9 +168,30 @@ const App = () => {
                         {provided.placeholder}
                       </div>
                     );
+
                   }}
                 </Droppable>
               </div>
+                <div style={{
+                    userSelect: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingLeft: 16,
+                    paddingRight: 16,
+                    paddingTop: 2,
+                    paddingBottom: 2,
+                    width: 224,
+                    margin: "0 0 8px 0",
+                    minHeight: "50px",
+                    color: "white",
+                    border: "dashed white",
+                    cursor: "pointer",
+                }}
+                     onClick={() => onAddCard(columnId)}
+                >
+                    + Add Card
+                </div>
             </div>
           );
         })}
