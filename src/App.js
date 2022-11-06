@@ -106,15 +106,15 @@ const App = () => {
           return (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}} key={columnId}>
               <div style={{height:100, display: "flex", justifyContent: "center", alignItems: "center",}}>
-                <h2>{column.name}</h2>
+                <input style={{fontSize: 22, border: "none", textAlign: "center", background: "none"}} value={column.name}/>
               </div>
               <div style={{ marginLeft: 8, marginRight: 8, padding: 8 }}>
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
                     return (
                       <div {...provided.droppableProps} ref={provided.innerRef} style={{
-                          background: snapshot.isDraggingOver ? "lightblue" : "lightgrey", padding: 4, width: 250,
-                          minHeight: 500 }}
+                          background: snapshot.isDraggingOver ? "lightblue" : "lightgrey", padding: 8, width: 250,
+                          minHeight: 600 }}
                       >
                         {column.items.map((item, index) => {
                           return (
