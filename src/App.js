@@ -106,7 +106,7 @@ const App = () => {
           return (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}} key={columnId}>
               <div style={{height:100, display: "flex", justifyContent: "center", alignItems: "center",}}>
-                <input style={{fontSize: 22, border: "none", textAlign: "center", background: "none"}} value={column.name}/>
+                <input style={{fontSize: 22, border: "none", textAlign: "center", background: "none"}} value={column.name} />
               </div>
               <div style={{ marginLeft: 8, marginRight: 8, padding: 8 }}>
                 <Droppable droppableId={columnId} key={columnId}>
@@ -122,7 +122,7 @@ const App = () => {
                               {(provided, snapshot) => {
                                 return (
                                   <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                                    style={{ userSelect: "none", padding: 16, margin: "0 0 8px 0", minHeight: "50px",
+                                       style={{ userSelect: "none", padding: 16, margin: "0 0 8px 0", minHeight: "50px",
                                         backgroundColor: snapshot.isDragging ? "#263B4A" : "#456C86", color: "white",
                                       ...provided.draggableProps.style
                                     }}
