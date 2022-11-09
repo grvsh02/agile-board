@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import React, {useEffect, useState} from "react";
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import uuid from "uuid/v4";
 
 const itemsFromBackend = [
@@ -99,6 +99,15 @@ const App = () => {
     });
   }
 
+  const handleColumnNameChange = (value, columnID) => {
+      console.log(columns)
+      console.log("value", value.currentTarget.value, "columnID", columnID)
+      console.log(columns[columnID])
+      columns[columnID]["name"] = value.currentTarget.value
+      setColumns(columns)
+      console.log(columns)
+  }
+
   return (
     <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
@@ -106,7 +115,7 @@ const App = () => {
           return (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}} key={columnId}>
               <div style={{height:100, display: "flex", justifyContent: "center", alignItems: "center",}}>
-                <input style={{fontSize: 22, border: "none", textAlign: "center", background: "none"}} value={column.name} />
+                <input style={{fontSize: 22, border: "none", textAlign: "center", background: "none"}} value={column.name} onChange={value => handleColumnNameChange(value, columnId)} />
               </div>
               <div style={{ marginLeft: 8, marginRight: 8, padding: 8 }}>
                 <Droppable droppableId={columnId} key={columnId}>
